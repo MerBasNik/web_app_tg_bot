@@ -13,14 +13,14 @@ app.use(express.json())
 const options = {
     reply_markup: {
         keyboard: [
-            [{text: "Заполнить форму", web_app: {url: webAppUrl}}]
+            [{text: "Заполнить форму", web_app: {url: webAppUrl + '/form'}}]
         ]
     },
 }
 const inlineOptions = {
     reply_markup: {
         inline_keyboard: [
-            [{text: "Сделать заказ", web_app: {url: webAppUrl + '/form'}}],
+            [{text: "Сделать заказ", web_app: {url: webAppUrl}}],
         ]
     },
 }
