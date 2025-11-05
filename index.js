@@ -2,7 +2,8 @@ const TelegramBotApi = require("node-telegram-bot-api")
 const token = "8336296662:AAFUwAc3QrmcZ5_sTWXDkETIzHROQIPVeog"
 const bot = new TelegramBotApi(token, {polling: true})
 const webAppUrl = "https://webapptgstore.netlify.app"
-const app = require("express")
+const express = require("express")
+const app = express()
 const cors = require("cors")
 
 app.use(cors())
