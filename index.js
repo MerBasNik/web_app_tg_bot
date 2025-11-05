@@ -26,30 +26,29 @@ const inlineOptions = {
     },
 }
 
-const start = async () => {
-    bot.on("message", async message => {
-        const chatId = message.chat.id
-        const text = message.text
-        if (text === "/start") {
-            await bot.sendMessage(chatId, "Добро пожаловать. Ниже появиться кнопка, заполни форму", options)
-            await bot.sendMessage(chatId, "Заходи в наш интернет магазин", inlineOptions)
+
+bot.on("message", async message => {
+    const chatId = message.chat.id
+    const text = message.text
+    if (text === "/start") {
+        await bot.sendMessage(chatId, "Добро пожаловать. Ниже появиться кнопка, заполни форму", options)
+        await bot.sendMessage(chatId, "Заходи в наш интернет магазин", inlineOptions)
+    }
+    if (message?.web_app_data?.data) {
+        try {
+            const data = JSON.parse(message.web_app_data.data)
+            await bot.sendMessage(chatId, "Спасибо за обратную связь!!!")
+            await bot.sendMessage(chatId, `Ваша страна: ${data?.country}`)
+            await bot.sendMessage(chatId, `Ваш город: ${data?.city}`)
+            setTimeout(async () => {
+                await bot.sendMessage(chatId, "Всю информацию вы получили здесь")
+            }, 1500)
+        } catch (e) {
+            console.log("Ошибка: ", e)
         }
-        if (message?.web_app_data?.data) {
-            try {
-                const data = JSON.parse(message.web_app_data.data)
-                await bot.sendMessage(chatId, "Спасибо за обратную связь!!!")
-                await bot.sendMessage(chatId, `Ваша страна: ${data?.country}`)
-                await bot.sendMessage(chatId, `Ваш город: ${data?.city}`)
-                setTimeout(async () => {
-                    await bot.sendMessage(chatId, "Всю информацию вы получили здесь")
-                }, 1500)
-            } catch (e) {
-                console.log("Ошибка: ", e)
-            }
-        }
-    })
-}
-start()
+    }
+})
+
 
 app.post("/web-data", async (req, res) => {
     const {queryId, products, totalPrice} = req.body
