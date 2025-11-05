@@ -12,6 +12,7 @@ app.use(express.json())
 
 const options = {
     reply_markup: {
+        resize_keyboard: true,
         keyboard: [
             [{text: "Заполнить форму", web_app: {url: webAppUrl + '/form'}}]
         ]
